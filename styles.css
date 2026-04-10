@@ -823,3 +823,11 @@ p{
 .disco-mode .confetti{
   animation-duration:1.5s !important;
 }
+
+.blur-active{
+  filter: blur(6px);
+  transition: filter .3s ease;
+}
+.blur-name{
+  display:inline-block;
+}

@@ -70,21 +70,21 @@
 
             <div class="poll-option">
               <div class="poll-row">
-                <span>🏔 Madeira</span>
+                <span class="blur-name blur-active" data-name="madeira">🏔 Madeira</span>
                 <span id="count-madeira">0</span>
               </div>
             </div>
 
             <div class="poll-option">
               <div class="poll-row">
-                <span>🍻 Boedapest</span>
+                <span class="blur-name blur-active" data-name="boedapest">🍻 Boedapest</span>
                 <span id="count-boedapest">0</span>
               </div>
             </div>
 
             <div class="poll-option">
               <div class="poll-row">
-                <span>🚗 Slovenië</span>
+                <span class="blur-name blur-active" data-name="slovenie">🚗 Slovenië</span>
                 <span id="count-slovenie">0</span>
               </div>
             </div>
@@ -213,6 +213,11 @@
           currentVotes[destination] += 1;
           saveVotes(currentVotes);
           renderVotes(currentVotes);
+
+          const nameEl = document.querySelector('[data-name="' + destination + '"]');
+          if(nameEl){
+            nameEl.classList.remove("blur-active");
+          }
         });
       });
 
