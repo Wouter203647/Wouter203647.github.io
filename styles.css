@@ -169,28 +169,39 @@ p{
   display:grid;
   grid-template-columns:repeat(3,1fr);
   gap:22px;
+  align-items:stretch;
 }
 
 .card-link{
   display:block;
   text-decoration:none;
+  height:100%;
 }
+
 .card-link .trip-card{
+  height:100%;
+  display:flex;
+  flex-direction:column;
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
+
 .card-link:hover .trip-card{
   transform:translateY(-4px);
   border-color:#cfd8df;
   box-shadow:0 18px 38px rgba(0,0,0,.10);
 }
-.trip-card{overflow:hidden}
+
+.trip-card{
+  overflow:hidden;
+  height:100%;
+}
 .trip-image{
   height:280px;
   background-size:cover;
   background-position:center;
   position:relative;
 }
-.trip-body{padding:24px}
+.trip-body{padding:24px; flex:1; display:flex; flex-direction:column; justify-content:space-between}
 .trip-tag{
   display:inline-block;
   font-size:12px;
