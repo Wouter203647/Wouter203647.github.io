@@ -3,77 +3,109 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mijn Simpele Website</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: Arial, sans-serif; background: #f5f5f5; color: #222; line-height: 1.6; }
-    header { background: white; border-bottom: 1px solid #ddd; padding: 20px; text-align: center; }
-    header h1 { font-size: 32px; margin-bottom: 10px; }
-    header p { color: #666; }
-    nav { margin-top: 15px; }
-    nav a { color: #222; text-decoration: none; margin: 0 10px; font-size: 14px; }
-    .hero { max-width: 900px; margin: 60px auto; padding: 0 20px; text-align: center; }
-    .hero h2 { font-size: 40px; margin-bottom: 20px; }
-    .hero p { max-width: 650px; margin: 0 auto 25px; color: #555; }
-    .button { display: inline-block; background: #222; color: white; padding: 12px 22px; text-decoration: none; border-radius: 4px; }
-    .section { max-width: 900px; margin: 0 auto 50px; padding: 0 20px; }
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin-top: 20px; }
-    .card { background: white; padding: 20px; border: 1px solid #ddd; border-radius: 6px; }
-    .card h3 { margin-bottom: 10px; font-size: 20px; }
-    .card p { color: #555; font-size: 14px; }
-    footer { text-align: center; padding: 30px 20px; color: #777; font-size: 14px; border-top: 1px solid #ddd; background: white; margin-top: 60px; }
-  </style>
+  <title>Droomtrip | 3 vakantieopties</title>
+  <meta name="description" content="Vergelijk drie vakantieopties: Madeira, Boedapest en een roadtrip door Slovenië." />
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>Jouw Bedrijf</h1>
-    <p>Een simpele en duidelijke website</p>
-    <nav>
-      <a href="#home">Home</a>
-      <a href="#over">Over</a>
-      <a href="#diensten">Diensten</a>
-      <a href="#contact">Contact</a>
-    </nav>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">Droomtrip</a>
+      <nav class="nav-links">
+        <a href="#opties">Opties</a>
+        <a href="madeira.html">Madeira</a>
+        <a href="boedapest.html">Boedapest</a>
+        <a href="slovenie-roadtrip.html">Slovenië roadtrip</a>
+      </nav>
+    </div>
   </header>
 
   <main>
-    <section class="hero" id="home">
-      <h2>Welkom op onze website</h2>
-      <p>Dit is een eenvoudige platte website zonder poespas.</p>
-      <a class="button" href="#contact">Neem contact op</a>
-    </section>
-
-    <section class="section" id="over">
-      <h2>Over ons</h2>
-      <p>Hier kun je uitleggen wie je bent en wat je doet.</p>
-    </section>
-
-    <section class="section" id="diensten">
-      <h2>Diensten</h2>
-      <div class="cards">
-        <div class="card">
-          <h3>Dienst 1</h3>
-          <p>Korte uitleg over je eerste dienst.</p>
+    <section class="hero">
+      <div class="container hero-grid">
+        <div class="hero-card">
+          <span class="eyebrow">Jouw volgende vakantie begint hier</span>
+          <h1>Kies uit 3 sterke vakantieopties</h1>
+          <p>
+            Op deze pagina vergelijk je drie totaal verschillende trips. Ga voor de ruige natuur van Madeira,
+            de charme van Boedapest of een afwisselende roadtrip door Slovenië. Alle drie staan direct klaar
+            om verder te ontdekken.
+          </p>
+          <div class="button-row">
+            <a class="button primary" href="#opties">Bekijk de opties</a>
+            <a class="button secondary" href="slovenie-roadtrip.html">Ga direct naar Slovenië</a>
+          </div>
         </div>
-        <div class="card">
-          <h3>Dienst 2</h3>
-          <p>Korte uitleg over je tweede dienst.</p>
-        </div>
-        <div class="card">
-          <h3>Dienst 3</h3>
-          <p>Korte uitleg over je derde dienst.</p>
+        <div class="info-card">
+          <div class="image-cover" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1200&q=80');">
+            <div class="image-caption">
+              <h3>Drie vakanties, drie totaal andere vibes</h3>
+              <p>Van stad en cultuur tot bergen, kust en roadtripvrijheid.</p>
+            </div>
+          </div>
         </div>
       </div>
     </section>
 
-    <section class="section" id="contact">
-      <h2>Contact</h2>
-      <p>Mail naar info@jouwdomein.nl</p>
+    <section class="section" id="opties">
+      <div class="container">
+        <h2>Welke trip past het best bij jou?</h2>
+        <p>
+          Klik op een optie om de bestemming uitgebreider te bekijken. Elke pagina bevat hoogtepunten,
+          sfeer, mogelijke dagindeling en redenen waarom juist die trip interessant is.
+        </p>
+
+        <div class="trip-grid">
+          <article class="trip-card">
+            <div class="trip-image" style="background-image:url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1200&q=80');"></div>
+            <div class="trip-body">
+              <span class="trip-tag">Natuur + uitzicht</span>
+              <h3>Madeira</h3>
+              <p class="trip-meta">
+                Een groen eiland met levadawandelingen, steile kliffen, kustwegen en een relaxte mix van natuur en dorpjes.
+              </p>
+              <div class="button-row">
+                <a class="button primary" href="madeira.html">Bekijk Madeira</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="trip-card">
+            <div class="trip-image" style="background-image:url('https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=1200&q=80');"></div>
+            <div class="trip-body">
+              <span class="trip-tag">Stedentrip + sfeer</span>
+              <h3>Boedapest</h3>
+              <p class="trip-meta">
+                Klassieke gebouwen, badhuizen, uitzicht over de Donau en genoeg energie voor een paar volle dagen weg.
+              </p>
+              <div class="button-row">
+                <a class="button primary" href="boedapest.html">Bekijk Boedapest</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="trip-card">
+            <div class="trip-image" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80');"></div>
+            <div class="trip-body">
+              <span class="trip-tag">Roadtrip + afwisseling</span>
+              <h3>Slovenië roadtrip</h3>
+              <p class="trip-meta">
+                Een compacte maar afwisselende route langs meren, bergen, rivieren en sfeervolle plekken onderweg.
+              </p>
+              <div class="button-row">
+                <a class="button primary" href="slovenie-roadtrip.html">Bekijk roadtrip</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <p>© 2026 Jouw Bedrijf</p>
+  <footer class="footer">
+    <div class="container">
+      Gemaakt als eerste opzet voor jouw persoonlijke vakantie-keuzes.
+    </div>
   </footer>
 </body>
 </html>
