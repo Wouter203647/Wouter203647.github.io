@@ -50,40 +50,48 @@
         </div>
 
         <div class="info-card">
-          <div class="image-cover" style="background-image:url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1400&q=80');">
+          <div class="image-cover" style="background-image:url('https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=80');">
             <div class="image-caption">
               <h3>Iedereen heeft al een favoriet. Nu nog dezelfde.</h3>
-              <p>De een wil bergen. De ander bars. En iemand roept sowieso roadtrip.</p>
+              <p>De een wil bergen. De ander bars. En iemand roept sowieso roadtrip. Klik hieronder op de bestemming die jullie het meest trekt.</p>
             </div>
           </div>
+          
+          <div class="poll-card interactive-poll">
+            <div class="poll-title">Laat de groepschat maar beginnen</div>
+            <p class="poll-copy">Kies jullie favoriet. Je kunt gewoon vaker stemmen als je van gedachten verandert of iemand wilt overtuigen.</p>
 
-          <div class="poll-card">
-            <div class="poll-title">Onofficiële groepschat tussenstand</div>
+            <button class="vote-button" type="button" data-destination="madeira">🏔 Stem op Madeira</button>
+            <button class="vote-button" type="button" data-destination="boedapest">🍻 Stem op Boedapest</button>
+            <button class="vote-button" type="button" data-destination="slovenie">🚗 Stem op Slovenië</button>
 
             <div class="poll-option">
               <div class="poll-row">
                 <span>🏔 Madeira</span>
-                <span>34%</span>
+                <span id="pct-madeira">34%</span>
               </div>
-              <div class="poll-track"><div class="poll-fill" style="width:34%;"></div></div>
+              <div class="poll-track"><div class="poll-fill" id="bar-madeira" style="width:34%;"></div></div>
             </div>
 
             <div class="poll-option">
               <div class="poll-row">
                 <span>🍻 Boedapest</span>
-                <span>31%</span>
+                <span id="pct-boedapest">31%</span>
               </div>
-              <div class="poll-track"><div class="poll-fill" style="width:31%;"></div></div>
+              <div class="poll-track"><div class="poll-fill" id="bar-boedapest" style="width:31%;"></div></div>
             </div>
 
             <div class="poll-option">
               <div class="poll-row">
                 <span>🚗 Slovenië</span>
-                <span>35%</span>
+                <span id="pct-slovenie">35%</span>
               </div>
-              <div class="poll-track"><div class="poll-fill" style="width:35%;"></div></div>
+              <div class="poll-track"><div class="poll-fill" id="bar-slovenie" style="width:35%;"></div></div>
             </div>
+
+            <p class="poll-note">Deze poll werkt lokaal in de browser en is vooral bedoeld als leuk element op de pagina.</p>
           </div>
+
         </div>
       </div>
     </section>
@@ -97,7 +105,10 @@
         </p>
 
         <div class="trip-grid">
-          <article class="trip-card">
+          <a href="madeira.html" class="card-link">
+<a href="boedapest.html" class="card-link">
+<a href="slovenie-roadtrip.html" class="card-link">
+<article class="trip-card">
             <div class="trip-image" style="background-image:url('https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1400&q=80');"></div>
             <div class="trip-body">
               <span class="trip-tag">Natuur + uitzicht</span>
@@ -108,6 +119,7 @@
               </p>
             </div>
           </article>
+</a>
 
           <article class="trip-card">
             <div class="trip-image" style="background-image:url('https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=1400&q=80');"></div>
@@ -120,6 +132,7 @@
               </p>
             </div>
           </article>
+</a>
 
           <article class="trip-card">
             <div class="trip-image" style="background-image:url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80');"></div>
@@ -132,6 +145,7 @@
               </p>
             </div>
           </article>
+</a>
         </div>
       </div>
     </section>
@@ -142,5 +156,62 @@
       Gemaakt als persoonlijke vakantievergelijker voor jullie volgende trip.
     </div>
   </footer>
+
+  <script>
+    (function () {
+      const storageKey = "droomtrip-local-poll";
+      const defaultVotes = { madeira: 34, boedapest: 31, slovenie: 35 };
+
+      function getVotes() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey));
+          if (
+            saved &&
+            typeof saved.madeira === "number" &&
+            typeof saved.boedapest === "number" &&
+            typeof saved.slovenie === "number"
+          ) {
+            return saved;
+          }
+        } catch (e) {}
+        return { ...defaultVotes };
+      }
+
+      function saveVotes(votes) {
+        localStorage.setItem(storageKey, JSON.stringify(votes));
+      }
+
+      function renderVotes(votes) {
+        const total = votes.madeira + votes.boedapest + votes.slovenie;
+        const pct = {
+          madeira: Math.round((votes.madeira / total) * 100),
+          boedapest: Math.round((votes.boedapest / total) * 100),
+          slovenie: Math.round((votes.slovenie / total) * 100)
+        };
+
+        document.getElementById("pct-madeira").textContent = pct.madeira + "%";
+        document.getElementById("pct-boedapest").textContent = pct.boedapest + "%";
+        document.getElementById("pct-slovenie").textContent = pct.slovenie + "%";
+
+        document.getElementById("bar-madeira").style.width = pct.madeira + "%";
+        document.getElementById("bar-boedapest").style.width = pct.boedapest + "%";
+        document.getElementById("bar-slovenie").style.width = pct.slovenie + "%";
+      }
+
+      const votes = getVotes();
+      renderVotes(votes);
+
+      document.querySelectorAll(".vote-button").forEach((button) => {
+        button.addEventListener("click", function () {
+          const destination = this.getAttribute("data-destination");
+          const currentVotes = getVotes();
+          currentVotes[destination] += 1;
+          saveVotes(currentVotes);
+          renderVotes(currentVotes);
+        });
+      });
+    })();
+  </script>
 </body>
 </html>
+
