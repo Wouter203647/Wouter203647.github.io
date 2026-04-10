@@ -8,6 +8,8 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <div class="confetti-layer" id="confetti-layer" aria-hidden="true"></div>
+
   <header class="site-header">
     <div class="container nav">
       <a class="brand" href="index.html">Droomtrip</a>
@@ -22,13 +24,51 @@
 
   <main class="winner-page">
     <div class="container">
-      <section class="winner-hero" id="winner-hero">
-        <div class="winner-content">
-          <span class="winner-kicker">Uitslag van de stemmen</span>
-          <h1 id="winner-title">De stemmen zijn geteld</h1>
-          <p id="winner-text">We laden de winnaar in...</p>
-          <p class="winner-votes" id="winner-votes"></p>
-        </div>
+      <section class="winner-top-grid">
+        <section class="winner-hero winner-glow" id="winner-hero">
+          <div class="winner-content">
+            <span class="winner-kicker">Uitslag van de stemmen</span>
+            <h1 class="winner-big" id="winner-title">De stemmen zijn geteld</h1>
+            <p class="winner-lead" id="winner-text">We laden de winnaar in...</p>
+            <p class="winner-votes" id="winner-votes"></p>
+          </div>
+        </section>
+
+        <aside class="winner-side">
+          <div class="winner-panel">
+            <div class="small-title">Scorebord</div>
+            <h2>Zo is er gestemd</h2>
+            <div class="vote-mini-grid">
+              <div class="vote-pill">
+                <strong>🏔 Madeira</strong>
+                <span class="vote-count" id="score-madeira">0</span>
+              </div>
+              <div class="vote-pill">
+                <strong>🍻 Boedapest</strong>
+                <span class="vote-count" id="score-boedapest">0</span>
+              </div>
+              <div class="vote-pill">
+                <strong>🚗 Slovenië</strong>
+                <span class="vote-count" id="score-slovenie">0</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="winner-panel">
+            <div class="small-title">Mogelijke data</div>
+            <h2>Wanneer kunnen jullie gaan?</h2>
+            <div class="date-options">
+              <div class="date-card">
+                <h3>Optie 1</h3>
+                <p>Tussen <strong>3 en 8 juni</strong>. Goede kandidaat als jullie eerder in de zomer willen gaan en sneller knopen willen doorhakken.</p>
+              </div>
+              <div class="date-card">
+                <h3>Optie 2</h3>
+                <p>Tussen <strong>1 en 6 juli</strong>. Handig als jullie liever iets later gaan en nog wat extra tijd willen om te plannen.</p>
+              </div>
+            </div>
+          </div>
+        </aside>
       </section>
 
       <div class="winner-summary">
@@ -36,6 +76,7 @@
           <div class="small-title">Waarom deze bestemming wint</div>
           <h2 id="winner-reason-title">Nog even geduld</h2>
           <p id="winner-reason-text">De pagina kijkt naar jullie lokale stemmen en kiest automatisch de winnaar.</p>
+          <div class="winner-badge-row" id="winner-badges"></div>
         </div>
 
         <div class="winner-box">
@@ -76,7 +117,8 @@
           text: "Madeira heeft gewonnen. Blijkbaar wil de groep toch liever bergen, uitzicht en een trip met veel karakter.",
           reasonTitle: "Team natuur pakt de winst",
           reasonText: "Dit is de winnaar als uitzicht, actief overdag zijn en een relaxte avond belangrijker zijn dan puur uitgaan of zo goedkoop mogelijk weg.",
-          ctaText: "Bekijk de Madeira-pagina en check of dit echt de trip is waar jullie op uitkomen."
+          ctaText: "Bekijk de Madeira-pagina en check of dit echt de trip is waar jullie op uitkomen.",
+          badges: ["🌿 Natuur", "📸 Uitzichten", "🚗 Huurauto", "🍽 Relaxte avonden"]
         },
         boedapest: {
           name: "Boedapest",
@@ -85,7 +127,8 @@
           text: "Boedapest heeft gewonnen. De groep lijkt dus te vallen voor citytripenergie, badhuizen en goede avonden.",
           reasonTitle: "Team stad is overtuigend geweest",
           reasonText: "Dit is de winnaar als jullie een korte trip willen met veel sfeer, weinig gedoe en genoeg te doen overdag én 's avonds.",
-          ctaText: "Bekijk de Boedapest-pagina en check of deze winnaar ook echt het best bij jullie past."
+          ctaText: "Bekijk de Boedapest-pagina en check of deze winnaar ook echt het best bij jullie past.",
+          badges: ["🍻 Nightlife", "♨️ Badhuizen", "💸 Budgetvriendelijk", "🏙 Stadssfeer"]
         },
         slovenie: {
           name: "Slovenië roadtrip",
@@ -94,7 +137,8 @@
           text: "Slovenië heeft gewonnen. Kennelijk wil de groep vrijheid, afwisseling en vooral gewoon een vette roadtrip.",
           reasonTitle: "Team avontuur komt als winnaar uit de bus",
           reasonText: "Dit is de winnaar als de reis zelf onderdeel van de trip moet zijn en jullie liever rondtrekken dan op één plek blijven.",
-          ctaText: "Bekijk de Slovenië-pagina en kijk of deze winnaar ook inhoudelijk jullie beste keuze is."
+          ctaText: "Bekijk de Slovenië-pagina en kijk of deze winnaar ook inhoudelijk jullie beste keuze is.",
+          badges: ["🚗 Roadtrip", "🏞 Afwisseling", "🧗 Avontuur", "🎵 Onderweg leuk"]
         }
       };
 
@@ -112,7 +156,8 @@
           reasonTitle: "Nog geen uitslag",
           reasonText: "Alle locaties staan nog op nul stemmen. Ga terug naar de homepagina en laat de groepschat losbarsten.",
           href: "index.html",
-          ctaText: "Ga terug naar de homepagina om de eerste stemmen uit te brengen."
+          ctaText: "Ga terug naar de homepagina om de eerste stemmen uit te brengen.",
+          badges: ["🗳 Nog geen stemmen", "📅 Kies eerst", "👀 Daarna winnaar"]
         };
       } else if (winners.length > 1) {
         selected = {
@@ -123,7 +168,8 @@
           reasonTitle: "Niemand heeft echt gewonnen",
           reasonText: "Er is een gelijke stand tussen " + winners.map(([key]) => destinations[key].name).join(" en ") + ". Jullie moeten dus nog één beslissende stemronde doen.",
           href: "index.html",
-          ctaText: "Ga terug en beslis het met nog een paar extra stemmen."
+          ctaText: "Ga terug en beslis het met nog een paar extra stemmen.",
+          badges: ["⚖️ Gelijke stand", "💬 Meer discussie", "🗳 Nieuwe stemronde"]
         };
       } else {
         selected = destinations[winners[0][0]];
@@ -139,6 +185,33 @@
       document.getElementById("winner-cta-text").textContent = selected.ctaText;
       document.getElementById("winner-link").href = selected.href;
       document.getElementById("winner-link").textContent = selected.tie ? "Ga naar homepagina" : "Bekijk " + selected.name;
+
+      document.getElementById("score-madeira").textContent = votes.madeira;
+      document.getElementById("score-boedapest").textContent = votes.boedapest;
+      document.getElementById("score-slovenie").textContent = votes.slovenie;
+
+      const badgeRow = document.getElementById("winner-badges");
+      badgeRow.innerHTML = "";
+      selected.badges.forEach((badge) => {
+        const span = document.createElement("span");
+        span.className = "winner-badge";
+        span.textContent = badge;
+        badgeRow.appendChild(span);
+      });
+
+      const layer = document.getElementById("confetti-layer");
+      const shouldCelebrate = !selected.tie;
+      if (shouldCelebrate) {
+        for (let i = 0; i < 120; i++) {
+          const piece = document.createElement("div");
+          piece.className = "confetti c" + ((i % 6) + 1);
+          piece.style.left = Math.random() * 100 + "vw";
+          piece.style.animationDuration = (4 + Math.random() * 4) + "s";
+          piece.style.animationDelay = (Math.random() * 1.8) + "s";
+          piece.style.transform = "rotate(" + (Math.random() * 360) + "deg)";
+          layer.appendChild(piece);
+        }
+      }
     })();
   </script>
 </body>

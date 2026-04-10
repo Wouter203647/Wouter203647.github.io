@@ -113,7 +113,9 @@ p{
   content:"";
   position:absolute;
   inset:0;
-  background:linear-gradient(180deg, rgba(0,0,0,.12), rgba(0,0,0,.52));
+  background:
+    linear-gradient(180deg, rgba(7,12,18,.28), rgba(7,12,18,.72)),
+    linear-gradient(180deg, rgba(0,0,0,.18), rgba(0,0,0,.58));
 }
 .image-caption,
 .page-banner-content{
@@ -481,4 +483,249 @@ p{
   .winner-summary{
     grid-template-columns:1fr;
   }
+}
+
+
+.winner-page{
+  padding:72px 0 56px;
+}
+
+.confetti-layer{
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  overflow:hidden;
+  z-index:50;
+}
+
+.confetti{
+  position:absolute;
+  top:-20px;
+  width:10px;
+  height:18px;
+  border-radius:2px;
+  opacity:.95;
+  animation:confetti-fall linear forwards;
+}
+
+.confetti.c1{background:#0f766e;}
+.confetti.c2{background:#f59e0b;}
+.confetti.c3{background:#ef4444;}
+.confetti.c4{background:#3b82f6;}
+.confetti.c5{background:#a855f7;}
+.confetti.c6{background:#22c55e;}
+
+@keyframes confetti-fall{
+  0%{
+    transform:translateY(-30px) rotate(0deg);
+    opacity:0;
+  }
+  10%{
+    opacity:1;
+  }
+  100%{
+    transform:translateY(110vh) rotate(540deg);
+    opacity:1;
+  }
+}
+
+.winner-top-grid{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:24px;
+  align-items:stretch;
+}
+
+.winner-hero{
+  min-height:460px;
+  border-radius:30px;
+  overflow:hidden;
+  position:relative;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  background-size:cover;
+  background-position:center;
+}
+
+.winner-hero::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at top right, rgba(255,255,255,.08), transparent 28%),
+    linear-gradient(180deg, rgba(6,10,16,.24), rgba(6,10,16,.76));
+}
+
+.winner-content{
+  position:absolute;
+  left:30px;
+  right:30px;
+  bottom:30px;
+  z-index:1;
+  color:#fff;
+}
+
+.winner-kicker{
+  display:inline-block;
+  padding:8px 12px;
+  border-radius:999px;
+  background:rgba(255,255,255,.18);
+  color:#fff;
+  font-size:13px;
+  margin-bottom:12px;
+  backdrop-filter:blur(6px);
+}
+
+.winner-big{
+  font-size:56px;
+  line-height:1.02;
+  margin:0 0 14px;
+}
+
+.winner-lead{
+  font-size:18px;
+  max-width:760px;
+  color:rgba(255,255,255,.92);
+}
+
+.winner-side{
+  display:grid;
+  gap:18px;
+}
+
+.winner-panel{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  padding:24px;
+}
+
+.vote-mini-grid{
+  display:grid;
+  gap:14px;
+  margin-top:16px;
+}
+
+.vote-pill{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  padding:14px 16px;
+  border-radius:16px;
+  background:#f6f8fb;
+  border:1px solid #e4e9ef;
+}
+
+.vote-pill strong{
+  font-size:16px;
+}
+
+.vote-count{
+  min-width:44px;
+  height:44px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  border-radius:999px;
+  background:var(--accent-soft);
+  color:var(--accent-dark);
+  font-weight:700;
+}
+
+.date-options{
+  display:grid;
+  gap:14px;
+  margin-top:16px;
+}
+
+.date-card{
+  padding:16px;
+  border-radius:18px;
+  background:linear-gradient(180deg,#ffffff,#f7fbfa);
+  border:1px solid #dfe7e5;
+}
+
+.date-card h3{
+  margin-bottom:8px;
+  font-size:20px;
+}
+
+.winner-summary{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:22px;
+  margin-top:26px;
+}
+
+.winner-box{
+  background:var(--surface);
+  border:1px solid var(--line);
+  border-radius:24px;
+  box-shadow:var(--shadow);
+  padding:26px;
+}
+
+.winner-badge-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:8px;
+}
+
+.winner-badge{
+  display:inline-block;
+  padding:10px 14px;
+  background:var(--accent-soft);
+  color:var(--accent-dark);
+  border-radius:999px;
+  font-size:14px;
+  font-weight:700;
+}
+
+.winner-votes{
+  font-size:15px;
+  color:rgba(255,255,255,.92);
+  margin-top:10px;
+}
+
+.winner-glow{
+  box-shadow:0 0 0 1px rgba(255,255,255,.18), 0 18px 60px rgba(15,118,110,.22);
+}
+
+@media (max-width: 980px){
+  .winner-top-grid,
+  .winner-summary{
+    grid-template-columns:1fr;
+  }
+  .winner-big{
+    font-size:40px;
+  }
+}
+
+
+.image-caption h3,
+.page-banner-content h1,
+.winner-big{
+  color:#ffffff;
+  text-shadow:0 3px 18px rgba(0,0,0,.42);
+}
+
+.image-caption p,
+.page-banner-content p,
+.winner-lead,
+.winner-votes{
+  color:rgba(255,255,255,.96);
+  text-shadow:0 2px 14px rgba(0,0,0,.38);
+}
+
+.page-banner-content .small-title,
+.image-caption .small-title{
+  color:rgba(255,255,255,.92);
+}
+
+.winner-kicker{
+  border:1px solid rgba(255,255,255,.22);
+  background:rgba(7,12,18,.32);
 }
