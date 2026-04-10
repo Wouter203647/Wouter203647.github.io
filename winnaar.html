@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Winnaar | Droomtrip</title>
+  <meta name="description" content="Bekijk welke bestemming heeft gewonnen op basis van de stemmen." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">Droomtrip</a>
+      <nav class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="madeira.html">Madeira</a>
+        <a href="boedapest.html">Boedapest</a>
+        <a href="slovenie-roadtrip.html">Slovenië roadtrip</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="winner-page">
+    <div class="container">
+      <section class="winner-hero" id="winner-hero">
+        <div class="winner-content">
+          <span class="winner-kicker">Uitslag van de stemmen</span>
+          <h1 id="winner-title">De stemmen zijn geteld</h1>
+          <p id="winner-text">We laden de winnaar in...</p>
+          <p class="winner-votes" id="winner-votes"></p>
+        </div>
+      </section>
+
+      <div class="winner-summary">
+        <div class="winner-box">
+          <div class="small-title">Waarom deze bestemming wint</div>
+          <h2 id="winner-reason-title">Nog even geduld</h2>
+          <p id="winner-reason-text">De pagina kijkt naar jullie lokale stemmen en kiest automatisch de winnaar.</p>
+        </div>
+
+        <div class="winner-box">
+          <div class="small-title">Volgende stap</div>
+          <h2 id="winner-cta-title">Klaar om verder te kijken?</h2>
+          <p id="winner-cta-text">Open de bestemmingspagina en kijk of de winnaar echt past bij wat jullie zoeken.</p>
+          <div class="button-row">
+            <a class="button primary" id="winner-link" href="index.html">Terug naar overzicht</a>
+            <a class="button secondary" href="index.html">Opnieuw stemmen</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const votes = (() => {
+        try {
+          const saved = JSON.parse(localStorage.getItem("droomtrip-votes"));
+          if (
+            saved &&
+            typeof saved.madeira === "number" &&
+            typeof saved.boedapest === "number" &&
+            typeof saved.slovenie === "number"
+          ) {
+            return saved;
+          }
+        } catch (e) {}
+        return { madeira: 0, boedapest: 0, slovenie: 0 };
+      })();
+
+      const destinations = {
+        madeira: {
+          name: "Madeira",
+          href: "madeira.html",
+          image: "https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=1600&q=80",
+          text: "Madeira heeft gewonnen. Blijkbaar wil de groep toch liever bergen, uitzicht en een trip met veel karakter.",
+          reasonTitle: "Team natuur pakt de winst",
+          reasonText: "Dit is de winnaar als uitzicht, actief overdag zijn en een relaxte avond belangrijker zijn dan puur uitgaan of zo goedkoop mogelijk weg.",
+          ctaText: "Bekijk de Madeira-pagina en check of dit echt de trip is waar jullie op uitkomen."
+        },
+        boedapest: {
+          name: "Boedapest",
+          href: "boedapest.html",
+          image: "https://images.unsplash.com/photo-1549877452-9c387954fbc2?auto=format&fit=crop&w=1600&q=80",
+          text: "Boedapest heeft gewonnen. De groep lijkt dus te vallen voor citytripenergie, badhuizen en goede avonden.",
+          reasonTitle: "Team stad is overtuigend geweest",
+          reasonText: "Dit is de winnaar als jullie een korte trip willen met veel sfeer, weinig gedoe en genoeg te doen overdag én 's avonds.",
+          ctaText: "Bekijk de Boedapest-pagina en check of deze winnaar ook echt het best bij jullie past."
+        },
+        slovenie: {
+          name: "Slovenië roadtrip",
+          href: "slovenie-roadtrip.html",
+          image: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80",
+          text: "Slovenië heeft gewonnen. Kennelijk wil de groep vrijheid, afwisseling en vooral gewoon een vette roadtrip.",
+          reasonTitle: "Team avontuur komt als winnaar uit de bus",
+          reasonText: "Dit is de winnaar als de reis zelf onderdeel van de trip moet zijn en jullie liever rondtrekken dan op één plek blijven.",
+          ctaText: "Bekijk de Slovenië-pagina en kijk of deze winnaar ook inhoudelijk jullie beste keuze is."
+        }
+      };
+
+      const entries = Object.entries(votes);
+      const maxVotes = Math.max(votes.madeira, votes.boedapest, votes.slovenie);
+      const winners = entries.filter(([_, value]) => value === maxVotes);
+
+      let selected;
+      if (maxVotes === 0) {
+        selected = {
+          tie: true,
+          name: "Nog geen winnaar",
+          image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=80",
+          text: "Er zijn nog geen stemmen uitgebracht. Eerst stemmen, dan pas een winnaar.",
+          reasonTitle: "Nog geen uitslag",
+          reasonText: "Alle locaties staan nog op nul stemmen. Ga terug naar de homepagina en laat de groepschat losbarsten.",
+          href: "index.html",
+          ctaText: "Ga terug naar de homepagina om de eerste stemmen uit te brengen."
+        };
+      } else if (winners.length > 1) {
+        selected = {
+          tie: true,
+          name: "Gelijke stand",
+          image: "https://images.unsplash.com/photo-1500375592092-40eb2168fd21?auto=format&fit=crop&w=1600&q=80",
+          text: "Het is gelijkspel. De groepschat is er dus officieel nog niet uit.",
+          reasonTitle: "Niemand heeft echt gewonnen",
+          reasonText: "Er is een gelijke stand tussen " + winners.map(([key]) => destinations[key].name).join(" en ") + ". Jullie moeten dus nog één beslissende stemronde doen.",
+          href: "index.html",
+          ctaText: "Ga terug en beslis het met nog een paar extra stemmen."
+        };
+      } else {
+        selected = destinations[winners[0][0]];
+      }
+
+      document.getElementById("winner-hero").style.backgroundImage = "url('" + selected.image + "')";
+      document.getElementById("winner-title").textContent = selected.name;
+      document.getElementById("winner-text").textContent = selected.text;
+      document.getElementById("winner-votes").textContent =
+        "Madeira: " + votes.madeira + " • Boedapest: " + votes.boedapest + " • Slovenië: " + votes.slovenie;
+      document.getElementById("winner-reason-title").textContent = selected.reasonTitle;
+      document.getElementById("winner-reason-text").textContent = selected.reasonText;
+      document.getElementById("winner-cta-text").textContent = selected.ctaText;
+      document.getElementById("winner-link").href = selected.href;
+      document.getElementById("winner-link").textContent = selected.tie ? "Ga naar homepagina" : "Bekijk " + selected.name;
+    })();
+  </script>
+</body>
+</html>
