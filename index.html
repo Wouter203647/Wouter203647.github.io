@@ -57,44 +57,43 @@
             </div>
           </div>
           
-          <div class="poll-card interactive-poll">
+          
+<div class="poll-card interactive-poll">
             <div class="poll-title">Laat de groepschat maar beginnen</div>
-            <p class="poll-copy">Kies jullie favoriet. Je kunt gewoon vaker stemmen als je van gedachten verandert of iemand wilt overtuigen.</p>
+            <p class="poll-copy">Kies jullie favoriet. Je kunt gewoon vaker stemmen als je iemand wilt overtuigen.</p>
 
             <button class="vote-button" type="button" data-destination="madeira">🏔 Stem op Madeira</button>
             <button class="vote-button" type="button" data-destination="boedapest">🍻 Stem op Boedapest</button>
             <button class="vote-button" type="button" data-destination="slovenie">🚗 Stem op Slovenië</button>
+            <button class="reset-button" type="button" id="reset-poll">Reset stemmen</button>
 
             <div class="poll-option">
               <div class="poll-row">
                 <span>🏔 Madeira</span>
-                <span id="pct-madeira">34%</span>
+                <span id="count-madeira">0</span>
               </div>
-              <div class="poll-track"><div class="poll-fill" id="bar-madeira" style="width:34%;"></div></div>
             </div>
 
             <div class="poll-option">
               <div class="poll-row">
                 <span>🍻 Boedapest</span>
-                <span id="pct-boedapest">31%</span>
+                <span id="count-boedapest">0</span>
               </div>
-              <div class="poll-track"><div class="poll-fill" id="bar-boedapest" style="width:31%;"></div></div>
             </div>
 
             <div class="poll-option">
               <div class="poll-row">
                 <span>🚗 Slovenië</span>
-                <span id="pct-slovenie">35%</span>
+                <span id="count-slovenie">0</span>
               </div>
-              <div class="poll-track"><div class="poll-fill" id="bar-slovenie" style="width:35%;"></div></div>
             </div>
 
             <p class="poll-note">Deze poll werkt lokaal in de browser en is vooral bedoeld als leuk element op de pagina.</p>
           </div>
-
         </div>
       </div>
     </section>
+
 
     <section class="section" id="opties">
       <div class="container">
@@ -159,10 +158,10 @@
     </div>
   </footer>
 
+  
   <script>
     (function () {
-      const storageKey = "droomtrip-local-poll";
-      const defaultVotes = { madeira: 34, boedapest: 31, slovenie: 35 };
+      const storageKey = "droomtrip-votes";
 
       function getVotes() {
         try {
@@ -176,7 +175,11 @@
             return saved;
           }
         } catch (e) {}
-        return { ...defaultVotes };
+        return {
+          madeira: 0,
+          boedapest: 0,
+          slovenie: 0
+        };
       }
 
       function saveVotes(votes) {
@@ -184,20 +187,19 @@
       }
 
       function renderVotes(votes) {
-        const total = votes.madeira + votes.boedapest + votes.slovenie;
-        const pct = {
-          madeira: Math.round((votes.madeira / total) * 100),
-          boedapest: Math.round((votes.boedapest / total) * 100),
-          slovenie: Math.round((votes.slovenie / total) * 100)
+        document.getElementById("count-madeira").textContent = votes.madeira;
+        document.getElementById("count-boedapest").textContent = votes.boedapest;
+        document.getElementById("count-slovenie").textContent = votes.slovenie;
+      }
+
+      function resetVotes() {
+        const votes = {
+          madeira: 0,
+          boedapest: 0,
+          slovenie: 0
         };
-
-        document.getElementById("pct-madeira").textContent = pct.madeira + "%";
-        document.getElementById("pct-boedapest").textContent = pct.boedapest + "%";
-        document.getElementById("pct-slovenie").textContent = pct.slovenie + "%";
-
-        document.getElementById("bar-madeira").style.width = pct.madeira + "%";
-        document.getElementById("bar-boedapest").style.width = pct.boedapest + "%";
-        document.getElementById("bar-slovenie").style.width = pct.slovenie + "%";
+        saveVotes(votes);
+        renderVotes(votes);
       }
 
       const votes = getVotes();
@@ -212,8 +214,16 @@
           renderVotes(currentVotes);
         });
       });
+
+      const resetButton = document.getElementById("reset-poll");
+      if (resetButton) {
+        resetButton.addEventListener("click", function () {
+          resetVotes();
+        });
+      }
     })();
   </script>
 </body>
 </html>
+
 
