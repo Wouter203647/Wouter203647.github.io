@@ -58,11 +58,11 @@
             <div class="small-title">Mogelijke data</div>
             <h2>Wanneer kunnen jullie gaan?</h2>
             <div class="date-options">
-              <div class="date-card">
+              <div class="date-card disco-toggle" data-disco="off">
                 <h3>Optie 1</h3>
                 <p>Tussen <strong>3 en 8 juni</strong>. Goede kandidaat als jullie eerder in de zomer willen gaan en sneller knopen willen doorhakken.</p>
               </div>
-              <div class="date-card">
+              <div class="date-card disco-toggle" data-disco="off">
                 <h3>Optie 2</h3>
                 <p>Tussen <strong>1 en 6 juli</strong>. Handig als jullie liever iets later gaan en nog wat extra tijd willen om te plannen.</p>
               </div>
@@ -214,5 +214,30 @@
       }
     })();
   </script>
+
+<script>
+(function(){
+  const body = document.body;
+
+  function toggleDisco(card){
+    const active = card.getAttribute("data-disco") === "on";
+    if(active){
+      card.setAttribute("data-disco","off");
+      body.classList.remove("disco-mode");
+    } else {
+      card.setAttribute("data-disco","on");
+      body.classList.add("disco-mode");
+    }
+  }
+
+  document.querySelectorAll(".disco-toggle").forEach(card=>{
+    card.style.cursor = "pointer";
+    card.addEventListener("click", function(){
+      toggleDisco(this);
+    });
+  });
+})();
+</script>
 </body>
 </html>
+
